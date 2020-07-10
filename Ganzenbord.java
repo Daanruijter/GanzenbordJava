@@ -3,14 +3,7 @@ import java.util.Random;
 
 class Ganzenbord {     
    
-//     static int changePosition(int positionParameter, int diceParameter) {
-//     System.out.println("I just got executed!" + positionParameter);
-//        if(positionParameter == 10 || positionParameter == 20 || positionParameter == 30 || positionParameter == 40 || positionParameter == 50 || positionParameter == 60){
-//            	System.out.println(positionParameter);
-//                 System.out.println(positionParameter + diceParameter);
-//         }
-//         return positionParameter + diceParameter;
-//   }
+
 
   public static void main(String[] args){
 
@@ -39,7 +32,15 @@ class Ganzenbord {
 
   //Show user his result, position and ask user to throw the dice again//
 
-  while(position <63 && position >=0){
+  while(position >=0 && position <=68){
+
+    if (position > 63 ){
+          System.out.println("You threw " + (position-63) + " too much!");
+       position = (63 - (position - 63)); 
+
+   System.out.println("You are on field " + position + " Just throw " + (63-position) + " to win!!"); 
+ }
+
 
   System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
      throwDice = myObj.nextLine();  // Read user input
@@ -47,7 +48,7 @@ class Ganzenbord {
 
        numDiceEyes = random.nextInt(6) +1;
        position = position + numDiceEyes;
-          System.out.println(numDiceEyes + "This is what you threw");
+        
 
           if (position ==23){
              position = -1;
@@ -64,49 +65,14 @@ class Ganzenbord {
             position = 0;
          }
           
-  }
- 
- if (position >= 63 ){
+   if (position == 63 ){
     System.out.println("You won by throwing " + numDiceEyes);
+    break;
  }
-       
 
- 
- 	  //Show user his result, position and ask user to throw the dice again//
-          
-//   System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-//    throwDice = myObj.nextLine();  // Read user input
-
-
-//        numDiceEyes = random.nextInt(6) +1;
-
-//        position = position + numDiceEyes;
+   
      
-
-
-
-
- 	  //Show user his result, position and ask user to throw the dice again//
-          
-//   System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-//    throwDice = myObj.nextLine();  // Read user input
-
-
-//        numDiceEyes = random.nextInt(6) +1;
-
-//        position = position + numDiceEyes;
-
-       
-
-
-      //  position = 10;
- 	  //Show user his result, position and ask user to throw the dice again//
-//   System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-//       if(position == 10 || position == 20 || position == 30 || position == 40 || position == 50 || position == 60){
-//           System.out.println("You threw " + numDiceEyes + " and you are on field " + position + "Bonus steps! You are on field" + (position + numDiceEyes) + "." );
-//           position = position + numDiceEyes;
-           
-//        }
+  }
 
   
     }
