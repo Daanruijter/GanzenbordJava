@@ -25,6 +25,7 @@ int numPlayers = myObj.nextInt();  // Read user input
 
 
    for(int i=0;i<(numPlayers +1);i++){
+         
        String playerName = myObj.nextLine();
          // Read user input
  
@@ -33,6 +34,15 @@ int numPlayers = myObj.nextInt();  // Read user input
 
 
       System.out.println("We play with " + numPlayers + " players");
+      
+   }
+
+playersArray.remove(0);
+
+
+   for(int i=0;i<playersArray.size(); i++){
+      System.out.println(playersArray.get(i) + " playername");      
+
       
    }
 
