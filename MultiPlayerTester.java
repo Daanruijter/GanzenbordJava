@@ -97,8 +97,8 @@ outer:
        System.out.println(positionArray.get(i) + "poisiiotnarray");
          if(positionArray.get(i)>63){
           System.out.println(playersArray.get(i) + " , you won!!!!! Your position is: " + positionArray.get(i) );
-        break outer;
-         
+        
+         break outer;
        }
 
 
