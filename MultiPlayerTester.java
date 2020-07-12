@@ -62,18 +62,23 @@ int numPlayers = myObj.nextInt();  // Read user input
 
    for(int i=0;i<playersArray.size(); i++){   
        
-       
-  System.out.println(playersArray.get(i) + " playername"); 
+
 
 // while(position < 63){
-    System.out.println("throw your dice");
-     String throwDice = myObj.next();  // Read user input
+    System.out.println(playersArray.get(i) + ", throw your dice by pressing enter");
+     String throwDice = myObj.nextLine();  // Read user input
   Random random = new Random();
      numDiceEyes = random.nextInt(6) +1;
 // myObj.next();
      System.out.println(numDiceEyes);
 
        positionArray.add(numDiceEyes);
+
+          //bridge: go to position 12//
+      if (positionArray.get(i)==6){
+          System.out.println("Lucky you, " + playersArray.get(i) + "! " + "You are on the bridge and can move on to position 12!");
+         positionArray.set(i, 12);
+      }
         }
 outer:
  for(int j=0;2<63; j++){  
@@ -83,20 +88,39 @@ outer:
        System.out.println(positionArray.get(i));
      
        
-  System.out.println(playersArray.get(i) + " throw your dice"); 
+  System.out.println(playersArray.get(i) + ", throw your dice by pressing enter"); 
 
-      
+
+
+
      String throwDice = myObj.nextLine();  // Read user input
   Random random = new Random();
      numDiceEyes = random.nextInt(6) +1;
 
-     System.out.println(numDiceEyes);
+     System.out.println(playersArray.get(i) + ", you threw " + numDiceEyes + " and you are on field " + (positionArray.get(i) + numDiceEyes) + ". No worries!");
 
+   
+
+      //update position of player i
        positionArray.set(i, (positionArray.get(i) + numDiceEyes));
 
-       System.out.println(positionArray.get(i) + "poisiiotnarray");
+
+      
+
+
+
+      //for goose that needs to breed, the game is over
+        if (positionArray.get(i)==23){
+             
+            System.out.println("You have to brood eggs, so you can't play anymore!, " +  playersArray.get(i) + " GAME OVER!");          
+            playersArray.remove(i);
+            positionArray.remove(i);
+          }
+
+
+    
          if(positionArray.get(i)>63){
-          System.out.println(playersArray.get(i) + " , you won!!!!! Your position is: " + positionArray.get(i) );
+          System.out.println(playersArray.get(i) + ", you won!!!!! Your position is: " + positionArray.get(i) );
         
          break outer;
        }
@@ -107,82 +131,6 @@ outer:
          
    
    }
-// }
-
-//     System.out.println("You are on start. Throw your dice (t) by hitting enter:");
-//    String throwDice = myObj.nextLine();  // Read user input
-   
-//         while(position >=0 && position <=68){
-  
-	
-
-//   Random random = new Random();
-//      numDiceEyes = random.nextInt(6) +1;
-  
-  //update goose position//
-    // position = numDiceEyes;
-    //    System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-    //  throwDice = myObj.nextLine();  // Read user input
-  
-
-    //    numDiceEyes = random.nextInt(6) +1;
-    //    position = position + numDiceEyes;
-//    }
-  
-
-
-
-// System.out.println("playerArray " + playersArray + playersArray.get(1));
-
-
-
- 
-
-
-
-  //Show user his result, position and ask user to throw the dice again//
-
-//   while(position >=0 && position <=68){
-
-//     if (position > 63 ){
-//           System.out.println("You threw " + (position-63) + " too much!");
-//        position = (63 - (position - 63)); 
-
-//    System.out.println("You are on field " + position + " Just throw " + (63-position) + " to win!!"); 
-//  }
-
-
-//   System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-//      throwDice = myObj.nextLine();  // Read user input
-  
-
-//        numDiceEyes = random.nextInt(6) +1;
-//        position = position + numDiceEyes;
-        
-
-//           if (position ==23){
-//              position = -1;
-//             System.out.println("You are in jail. GAME OVER!");          
-//           }
-
-//            if(position == 10 || position == 20 || position == 30 || position == 40 || position == 50 || position == 60){
-//           System.out.println("You threw " + numDiceEyes + " and you are on field " + position + "Bonus steps! You are on field" + (position + numDiceEyes) + "." );
-//           position = position + numDiceEyes;
-           
-//        }
-
-//          if (position ==25 || position ==45){
-//             position = 0;
-//          }
-          
-//    if (position == 63 ){
-//     System.out.println("You won by throwing " + numDiceEyes);
-//     break;
-//  }
-
-   
-     
-//   }
 
   
     }
