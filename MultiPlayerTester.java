@@ -9,6 +9,7 @@ class MultiPlayerTester {
    
             int position;
      int numDiceEyes;
+     
     // ArrayList <String> playersArray = new ArrayList<String>();
 
 public MultiPlayerTester(int position, int numDiceEyes){
@@ -24,6 +25,7 @@ this.numDiceEyes = numDiceEyes;
      int numDiceEyes= 0;
     ArrayList <String> playersArray = new ArrayList<String>();
     ArrayList <Integer> positionArray = new ArrayList<Integer>();
+   ArrayList <Integer> skipTurnArray = new ArrayList<Integer>();
 
 
     
@@ -104,17 +106,41 @@ outer:
 
      System.out.println(ConsoleColors.BLUE + playersArray.get(i) + ", you threw " + numDiceEyes + " and you are on field " + (positionArray.get(i) + numDiceEyes) + ". No worries!\n");
 
-             //goose that hit position 19 need to skip one turn
-        if (positionArray.get(i)==19){
-             
-            System.out.println(ConsoleColors.YELLOW + "Skip a turn, " +  playersArray.get(i));          
-            continue;    
-            
-              }
+
  
 
       //update position of player i after throwing
        positionArray.set(i, (positionArray.get(i) + numDiceEyes));
+
+
+                    //goose that hit position 19 need to skip one turn
+        if (positionArray.get(i)==19){
+  System.out.println(ConsoleColors.YELLOW + "Skip a turn, " +  playersArray.get(i));         
+            for (int k = 0; k < playersArray.size(); k++) {
+  skipTurnArray.add(0);
+  
+  
+
+}
+skipTurnArray.set(i, j);
+System.out.println(skipTurnArray + "skipturnarray");
+           
+            // continue;    
+            
+              }
+
+//    if (positionArray.get(i)==19){
+             
+//  continue;  
+            
+//               }
+
+//                  if (positionArray.get(i)==19){
+             
+//   positionArray.set(i, (positionArray.get(i) + numDiceEyes)); 
+            
+//               }
+
 
              if(positionArray.get(i)==63){
           System.out.println(ConsoleColors.PURPLE + playersArray.get(i) + ", YOU WON!!!!! Your position is: " + positionArray.get(i) );
@@ -122,6 +148,7 @@ outer:
          break outer;
        }
 
+       
       //goose have throw the right number to get on position 63 and to win
       if(positionArray.get(i)>63){
           System.out.println(ConsoleColors.RED + playersArray.get(i) + ", You threw " + numDiceEyes + " which is " + (positionArray.get(i) - 63) + " too much! Your position is: " + (63 -(positionArray.get(i) - 63)));
