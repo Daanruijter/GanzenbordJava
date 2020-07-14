@@ -10,8 +10,6 @@ class MultiPlayerTester {
             int position;
      int numDiceEyes;
      
-     
-    // ArrayList <String> playersArray = new ArrayList<String>();
 
 public MultiPlayerTester(int position, int numDiceEyes){
 this.position = position;
@@ -27,10 +25,8 @@ this.numDiceEyes = numDiceEyes;
     
     ArrayList <String> playersArray = new ArrayList<String>();
     ArrayList <Integer> positionArray = new ArrayList<Integer>();
-   ArrayList <Integer> skipTurnArray = new ArrayList<Integer>();
+   ArrayList <Integer> skipOneTurnArray = new ArrayList<Integer>();
       ArrayList <Integer> skipPlayerArray = new ArrayList<Integer>();
-ArrayList <Integer> skipPlayerArrayWithJ = new ArrayList<Integer>();
-
 
     
   //ask user to throw the dice//
@@ -64,13 +60,13 @@ int numPlayers = myObj.nextInt();  // Read user input
       
    }
 
-//initialize skipturnarray
+//initialize skipOneTurnArray
 for (int k = 0; k < playersArray.size(); k++) {
-  skipTurnArray.add(-5);
+  skipOneTurnArray.add(-5);
   skipPlayerArray.add(-5);
   
   }
-   System.out.println(skipTurnArray);
+   System.out.println(skipOneTurnArray);
    System.out.println(skipPlayerArray);
 
 //trying to implement the multiplayer thing//
@@ -98,6 +94,8 @@ for (int k = 0; k < playersArray.size(); k++) {
 outer:
  for(int j=0;2<63; j++){  
 
+
+
     System.out.println(ConsoleColors.RED + j + "the value of j");
    
    for(int i=0;i<playersArray.size(); i++){   
@@ -118,28 +116,27 @@ outer:
 
 
  
-System.out.println(positionArray.get(i)+"why does 19 condition not work");
-
-System.out.println(((j-skipTurnArray.get(i))>0) +"condition to print skip turn");
-
-
-
-
-                    //goose that hit position 19 need to skip one turn
+          //goose that hit position 19 need to skip one turn
         if (positionArray.get(i)==19) {
 
            
-
-           if (positionArray.get(i)==19 && skipTurnArray.get(i)==-5){
-  System.out.println(ConsoleColors.YELLOW + "Skip next turn, " +  playersArray.get(i));      
+           //print "skip one turn" if after a player hits 19
+           if (positionArray.get(i)==19 && skipOneTurnArray.get(i)==-5){
+  System.out.println(ConsoleColors.RED + "Skip one turn, " +  playersArray.get(i));      
            }
-  skipPlayerArrayWithJ.add(j);
-   skipTurnArray.set(i,skipPlayerArrayWithJ.get(0));
-    skipPlayerArray.set(i,i);
-    System.out.println(skipTurnArray);
+           
+ 
+   //if skipOneTurnArray, which holds the turns in which a certain player hit 19, is not yet set for a player, set it to the "turn number" (j)
+  if(skipOneTurnArray.get(i)==-5){
+         skipPlayerArray.set(i,i);
+             skipOneTurnArray.set(i,j);
+  }
+
+
+    System.out.println(skipOneTurnArray);
     System.out.println(skipPlayerArray);
-    System.out.println(skipPlayerArrayWithJ);
-System.out.println((j-skipTurnArray.get(i)));
+
+System.out.println((j-skipOneTurnArray.get(i)));
 
 
 
@@ -152,57 +149,28 @@ System.out.println((j-skipTurnArray.get(i)));
              
             
               }
-  System.out.println((j-skipTurnArray.get(i))==0);
-  System.out.println((j-skipTurnArray.get(i))==1);
+  System.out.println((j-skipOneTurnArray.get(i))==0);
+  System.out.println((j-skipOneTurnArray.get(i))==1);
+   
+
   
-  
-     if((j-skipTurnArray.get(i))==0 || (j-skipTurnArray.get(i))==1 ){
+     if((j-skipOneTurnArray.get(i))==0 || (j-skipOneTurnArray.get(i))==1 ){
          System.out.println("turn skipper");
        
         continue;
         
      }
 
+   //Reset skipOneTurnArray if a player has skipped his turn
+ if (positionArray.get(i)!=19 && skipOneTurnArray.get(i)!=-5){
+System.out.println("RESET skipOneTurnArray");
+      skipOneTurnArray.set(i, -5);
 
+  }
 
-   //   if (positionArray.get(i)!=19) {
    
   positionArray.set(i, (positionArray.get(i) + numDiceEyes));
-   //   }
 
-  
-//   System.out.println(skipTurnArray.get(0));
-
-
-//               if (positionArray.get(i)==19 && j==skipTurnArray.get(i)+1){
-            
-// System.out.println("test");
-           
-//              continue;
-            
-//               }
-
-
-            //   if (positionArray.get(i)==19 && j==(skipTurnArray.get(i)+1)){
-            // System.out.println("test");
-        
-
-            //   }
-
-   //update position of player i after throwing
-     
-
-//    if (positionArray.get(i)==19){
-             
-//  continue;  
-            
-//               }
-
-//                  if (positionArray.get(i)==19){
-             
-//   positionArray.set(i, (positionArray.get(i) + numDiceEyes)); 
-            
-//               }
 
 
              if(positionArray.get(i)==63){
