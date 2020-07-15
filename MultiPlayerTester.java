@@ -21,6 +21,8 @@ class MultiPlayerTester {
       ArrayList<Integer> skipOneTurnArray = new ArrayList<Integer>();
       ArrayList<Integer> skipThreeTurnsArray = new ArrayList<Integer>();
       ArrayList<Integer> skipPlayerArray = new ArrayList<Integer>();
+      ArrayList<Integer> wellArray = new ArrayList<Integer>();
+      ArrayList<Boolean> wellBooleanArray = new ArrayList<Boolean>();
 
       // ask user to throw the dice//
       Scanner myObj = new Scanner(System.in); // Create a Scanner object
@@ -50,6 +52,7 @@ class MultiPlayerTester {
          skipOneTurnArray.add(-5);
          skipPlayerArray.add(-5);
          skipThreeTurnsArray.add(-5);
+         wellBooleanArray.add(false);
 
       }
 
@@ -147,8 +150,7 @@ class MultiPlayerTester {
 
                // print "skip three turns" after a player hits 52
                if (positionArray.get(i) == 52 && skipThreeTurnsArray.get(i) == -5) {
-                  System.out
-                        .println(ConsoleColors.YELLOW + "You are in jail, skip three turns, " + playersArray.get(i));
+                  System.out.println(ConsoleColors.RED + "You are in jail, skip three turns, " + playersArray.get(i));
                }
 
                // if skipThreeTurnsArray, which holds the turn in which a certain player hits
@@ -178,7 +180,9 @@ class MultiPlayerTester {
                }
             }
 
-            positionArray.set(i, (positionArray.get(i) + numDiceEyes));
+            if (wellBooleanArray.get(i) == false) {
+               positionArray.set(i, (positionArray.get(i) + numDiceEyes));
+            }
 
             // PLAYER WINS
             if (positionArray.get(i) == 63) {
@@ -207,6 +211,36 @@ class MultiPlayerTester {
                      + ", and you are on field " + (positionArray.get(i) - numDiceEyes)
                      + ": Bonus steps! Move on to field " + positionArray.get(i) + "!");
 
+            }
+
+            // WELL
+            // goose that get trapped in a well have to wait till another goose redeems him
+            if (positionArray.get(i) == 31) {
+               System.out.println(ConsoleColors.YELLOW + playersArray.get(i)
+                     + ", you are stuck in a well. Wait until another player redeems you!");
+               wellBooleanArray.set(i, true);
+               System.out.println(wellBooleanArray);
+
+               wellArray.add(i);
+
+               System.out.println(wellArray);
+
+               int trueCount = 0;
+               for (int l = 0; l < wellBooleanArray.size(); l++) {
+                  if (wellBooleanArray.get(l)) {
+                     trueCount++;
+                  }
+               }
+               System.out.println(trueCount);
+
+               if (trueCount == 2) {
+                  wellBooleanArray.set(wellArray.get(0), false);
+                  wellArray.clear();
+                  wellArray.add(i);
+                  System.out.println(wellBooleanArray);
+                  System.out.println(wellArray);
+
+               }
             }
 
             // MAZE
@@ -239,6 +273,7 @@ class MultiPlayerTester {
                positionArray.remove(i);
                skipOneTurnArray.remove(i);
                skipThreeTurnsArray.remove(i);
+               wellBooleanArray.remove(i);
             }
          }
 
