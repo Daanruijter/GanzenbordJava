@@ -2,109 +2,92 @@ import java.util.Scanner;
 import java.util.Random;
 import java.util.ArrayList;
 
+class GanzenbordMultiPlayer {
 
-class GanzenbordMultiPlayer {     
-   
+   public static void main(String[] args) {
 
+      int position = 0;
+      int numDiceEyes = 0;
+      ArrayList<String> playersArray = new ArrayList<String>();
 
-  public static void main(String[] args){
+      // ask user to throw the dice//
+      Scanner myObj = new Scanner(System.in); // Create a Scanner object
 
-   
-        int position = 0;
-     int numDiceEyes= 0;
-    ArrayList <String> playersArray = new ArrayList<String>();
+      System.out.println("Welcome to the ancient Dutch game of Ganzenbord\n");
 
+      System.out.println("With how many players do you want to play? Enter a number");
+      int numPlayers = myObj.nextInt(); // Read user input
+      myObj.close();
+      for (int i = 0; i < (numPlayers + 1); i++) {
 
-  //ask user to throw the dice//
-   Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-
-   System.out.println("Welcome to the ancient Dutch game of Ganzenbord\n");
-
-   System.out.println("With how many players do you want to play? Enter a number" );
-int numPlayers = myObj.nextInt();  // Read user input
-
-
-   for(int i=0;i<(numPlayers +1);i++){
-         
-       String playerName = myObj.nextLine();
+         String playerName = myObj.nextLine();
          // Read user input
- 
-      	System.out.println("Enter the name of player " + (i +1));
-    playersArray.add(playerName);
 
+         System.out.println("Enter the name of player " + (i + 1));
+         playersArray.add(playerName);
 
-      System.out.println("We play with " + numPlayers + " players");
-      
-   }
+         System.out.println("We play with " + numPlayers + " players");
 
-playersArray.remove(0);
+      }
 
+      playersArray.remove(0);
 
-   for(int i=0;i<playersArray.size(); i++){
-      System.out.println(playersArray.get(i) + " playername");      
+      for (int i = 0; i < playersArray.size(); i++) {
+         System.out.println(playersArray.get(i) + " playername");
 
-      
-   }
+      }
 
-System.out.println("playerArray " + playersArray + playersArray.get(1));
+      System.out.println("playerArray " + playersArray + playersArray.get(1));
 
-	System.out.println("You are on start. Throw your dice (t) by hitting enter:");
-   String throwDice = myObj.nextLine();  // Read user input
+      System.out.println("You are on start. Throw your dice (t) by hitting enter:");
+      myObj.nextLine(); // Read user input
 
-  Random random = new Random();
-     numDiceEyes = random.nextInt(6) +1;
-  
-  //update goose position//
-    position = numDiceEyes;
+      Random random = new Random();
+      numDiceEyes = random.nextInt(6) + 1;
 
- 
+      // update goose position//
+      position = numDiceEyes;
 
+      // Show user his result, position and ask user to throw the dice again//
 
+      while (position >= 0 && position <= 68) {
 
-  //Show user his result, position and ask user to throw the dice again//
+         if (position > 63) {
+            System.out.println("You threw " + (position - 63) + " too much!");
+            position = (63 - (position - 63));
 
-  while(position >=0 && position <=68){
+            System.out.println("You are on field " + position + " Just throw " + (63 - position) + " to win!!");
+         }
 
-    if (position > 63 ){
-          System.out.println("You threw " + (position-63) + " too much!");
-       position = (63 - (position - 63)); 
+         System.out.println("You threw " + numDiceEyes + " and you are on field " + position
+               + ". No worries. Throw your dice (t) by hitting enter");
+         myObj.nextLine(); // Read user input
 
-   System.out.println("You are on field " + position + " Just throw " + (63-position) + " to win!!"); 
- }
+         numDiceEyes = random.nextInt(6) + 1;
+         position = position + numDiceEyes;
 
+         if (position == 23) {
+            position = -1;
+            System.out.println("You are in jail. GAME OVER!");
+         }
 
-  System.out.println("You threw " + numDiceEyes + " and you are on field " + position + ". No worries. Throw your dice (t) by hitting enter");
-     throwDice = myObj.nextLine();  // Read user input
-  
+         if (position == 10 || position == 20 || position == 30 || position == 40 || position == 50 || position == 60) {
+            System.out.println("You threw " + numDiceEyes + " and you are on field " + position
+                  + "Bonus steps! You are on field" + (position + numDiceEyes) + ".");
+            position = position + numDiceEyes;
 
-       numDiceEyes = random.nextInt(6) +1;
-       position = position + numDiceEyes;
-        
+         }
 
-          if (position ==23){
-             position = -1;
-            System.out.println("You are in jail. GAME OVER!");          
-          }
-
-           if(position == 10 || position == 20 || position == 30 || position == 40 || position == 50 || position == 60){
-          System.out.println("You threw " + numDiceEyes + " and you are on field " + position + "Bonus steps! You are on field" + (position + numDiceEyes) + "." );
-          position = position + numDiceEyes;
-           
-       }
-
-         if (position ==25 || position ==45){
+         if (position == 25 || position == 45) {
             position = 0;
          }
-          
-   if (position == 63 ){
-    System.out.println("You won by throwing " + numDiceEyes);
-    break;
- }
 
-   
-     
-  }
+         if (position == 63) {
+            System.out.println("You won by throwing " + numDiceEyes);
+            break;
+         }
 
-  
-    }
+      }
+
+   }
 }
