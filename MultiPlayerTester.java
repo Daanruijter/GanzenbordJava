@@ -89,7 +89,7 @@ class MultiPlayerTester {
             System.out.println(positionArray.get(i));
 
             // only print this when a player does not need to skip a turn//
-            if (positionArray.get(i) != 19) {
+            if (positionArray.get(i) != 19 && positionArray.get(i) != 52) {
                System.out.println(ConsoleColors.RESET + playersArray.get(i) + ", throw your dice by pressing enter\n");
 
             }
@@ -100,7 +100,7 @@ class MultiPlayerTester {
             numDiceEyes = random.nextInt(6) + 1;
 
             // only print this when a player does not need to skip a turn//
-            if (positionArray.get(i) != 19) {
+            if (positionArray.get(i) != 19 && positionArray.get(i) != 52) {
                System.out.println(ConsoleColors.BLUE + playersArray.get(i) + ", you threw " + numDiceEyes
                      + " and you are on field " + (positionArray.get(i) + numDiceEyes) + ". No worries!\n");
             }
@@ -114,22 +114,20 @@ class MultiPlayerTester {
                   System.out.println(ConsoleColors.RED + "Skip one turn, " + playersArray.get(i));
                }
 
-               // if skipOneTurnArray, which holds the turns in which a certain player hit 19,
+               // if skipOneTurnArray, which holds the turn in which a certain player hits 19,
                // is not yet set for a player, set it to the "turn number" (j)
                if (skipOneTurnArray.get(i) == -5) {
                   skipPlayerArray.set(i, i);
                   skipOneTurnArray.set(i, j);
                }
 
-               System.out.println(skipOneTurnArray);
-               System.out.println(skipPlayerArray);
-
-               System.out.println((j - skipOneTurnArray.get(i)));
-
             }
 
+            // if a player hits 19, skip his next turn by calling continue;,
+            // which skips the iteration for player i if the difference between the turn j
+            // when he hit 19 and the actual turn j is 0
+
             if ((j - skipOneTurnArray.get(i)) == 0) {
-               System.out.println("turn skipper");
 
                continue;
 
@@ -137,9 +135,47 @@ class MultiPlayerTester {
 
             // Reset skipOneTurnArray if a player has skipped his turn
             if (positionArray.get(i) != 19 && skipOneTurnArray.get(i) != -5) {
-               System.out.println("RESET skipOneTurnArray");
+
                skipOneTurnArray.set(i, -5);
 
+            }
+
+            // SKIP THREE TURNS
+            // A goose that hits the jail on position 52 needs to skip three turns
+
+            if (positionArray.get(i) == 52) {
+
+               // print "skip three turns" after a player hits 52
+               if (positionArray.get(i) == 52 && skipThreeTurnsArray.get(i) == -5) {
+                  System.out
+                        .println(ConsoleColors.YELLOW + "You are in jail, skip three turns, " + playersArray.get(i));
+               }
+
+               // if skipThreeTurnsArray, which holds the turn in which a certain player hits
+               // 52,
+               // is not yet set for a player, set it to the "turn number" (j)
+               if (skipThreeTurnsArray.get(i) == -5) {
+                  skipThreeTurnsArray.set(i, j);
+                  System.out.println(skipThreeTurnsArray);
+               }
+
+               // if a player hits 52, skip his next turn by calling continue;,
+               // which skips the iteration for player i if the difference between the turn j
+               // when he hit 19 and the actual turn j is 0, 1 or 2,
+
+               if ((j - skipThreeTurnsArray.get(i)) == 0 || (j - skipThreeTurnsArray.get(i)) == 1
+                     || (j - skipThreeTurnsArray.get(i)) == 2) {
+                  System.out.println("skipThreeTurnsArray");
+                  continue;
+
+               }
+               // Reset skipOneTurnArray if a player has skipped his turn
+               if (positionArray.get(i) != 52 && skipThreeTurnsArray.get(i) != -5
+                     && (j - skipThreeTurnsArray.get(i)) > 2) {
+
+                  skipThreeTurnsArray.set(i, -5);
+
+               }
             }
 
             positionArray.set(i, (positionArray.get(i) + numDiceEyes));
@@ -202,6 +238,7 @@ class MultiPlayerTester {
                playersArray.remove(i);
                positionArray.remove(i);
                skipOneTurnArray.remove(i);
+               skipThreeTurnsArray.remove(i);
             }
          }
 
