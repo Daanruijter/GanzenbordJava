@@ -76,7 +76,7 @@ for (int k = 0; k < playersArray.size(); k++) {
 
 
 // while(position < 63){
-    System.out.println(ConsoleColors.RESET + playersArray.get(i) + ", throw your dice by pressing enter\n");
+   System.out.println(ConsoleColors.RESET + playersArray.get(i) + ", throw your dice by pressing enter\n");
      String throwDice = myObj.nextLine();  // Read user input
   Random random = new Random();
      numDiceEyes = random.nextInt(6) +1;
@@ -99,21 +99,27 @@ outer:
     System.out.println(ConsoleColors.RED + j + "the value of j");
    
    for(int i=0;i<playersArray.size(); i++){   
+      
        System.out.println(ConsoleColors.RESET + positionArray);
        System.out.println(positionArray.get(i));
      
-       
+
+     //only print this when a player does not need to skip a turn//
+          if (positionArray.get(i)!=19) {     
   System.out.println(ConsoleColors.RESET + playersArray.get(i) + ", throw your dice by pressing enter\n"); 
 
+          }
 
 
-
+   //throw the dice
      String throwDice = myObj.nextLine();  // Read user input
   Random random = new Random();
      numDiceEyes = random.nextInt(6) +1;
 
+     //only print this when a player does not need to skip a turn//
+        if (positionArray.get(i)!=19) {
      System.out.println(ConsoleColors.BLUE + playersArray.get(i) + ", you threw " + numDiceEyes + " and you are on field " + (positionArray.get(i) + numDiceEyes) + ". No worries!\n");
-
+        }
 
  
           //goose that hit position 19 need to skip one turn
@@ -138,23 +144,12 @@ outer:
 
 System.out.println((j-skipOneTurnArray.get(i)));
 
-
-
-
-
-
-   
-         
-           
-             
+     
             
               }
-  System.out.println((j-skipOneTurnArray.get(i))==0);
-  System.out.println((j-skipOneTurnArray.get(i))==1);
-   
-
   
-     if((j-skipOneTurnArray.get(i))==0 || (j-skipOneTurnArray.get(i))==1 ){
+  
+     if((j-skipOneTurnArray.get(i))==0  ){
          System.out.println("turn skipper");
        
         continue;
@@ -196,13 +191,7 @@ System.out.println("RESET skipOneTurnArray");
        }
 
 
-      //for goose that needs to breed at position 23, the game is over
-      //   if (positionArray.get(i)==23){
-             
-      //       System.out.println(ConsoleColors.GREEN + "You have to brood eggs, so you can't play anymore!, " +  playersArray.get(i) + " GAME OVER!");          
-      //       playersArray.remove(i);
-      //       positionArray.remove(i);
-      //     }
+ 
 
     //goose that get trapped in a maze at position 42 need to step back 3 positions
         if (positionArray.get(i)==42){
@@ -219,7 +208,14 @@ System.out.println("RESET skipOneTurnArray");
                       }
    
 
-
+     // for goose that needs to breed at position 23, the game is over
+        if (positionArray.get(i)==23){
+             
+            System.out.println(ConsoleColors.PURPLE + "You have to brood eggs, so you can't play anymore!, " +  playersArray.get(i) + " GAME OVER!");          
+            playersArray.remove(i);
+            positionArray.remove(i);
+            skipOneTurnArray.remove(i);
+          }
         }
 
          
